@@ -2,11 +2,21 @@ package com.danielProject.demo.entities;
 
 import java.io.Serializable;
 
-// Interface defined on objects to transform them into a byte String
-public class User implements Serializable{
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "tb_user") // Set the table name
+public class User implements Serializable{ // Interface defined on objects to transform them into a byte String
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id // identify primary key
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // JPA will identify that key is auto-incremented 
 	private long id;
 	private String name;
 	private String email;
