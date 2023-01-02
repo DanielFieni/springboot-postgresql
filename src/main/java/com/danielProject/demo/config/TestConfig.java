@@ -1,0 +1,32 @@
+package com.danielProject.demo.config;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+import com.danielProject.demo.entities.User;
+import com.danielProject.demo.repositories.UserRepository;
+
+@Configuration // Tell spring that it's a configuration class
+@Profile("test") // Identify that will run the configuration in the test profile
+public class TestConfig implements CommandLineRunner{
+	
+	@Autowired // Dependency injection
+	private UserRepository userRepository;
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456"); 
+		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456"); 
+
+		userRepository.saveAll(Arrays.asList(u1, u2));
+		
+	}
+	
+	
+
+}
