@@ -76,6 +76,16 @@ public class Order implements Serializable{
 		}
 		
 	}
+	
+	public double getTotal()
+	{
+		double sum = 0;
+		for(OrderItem item : items) {
+			sum += item.getSubTotal();
+		}
+		
+		return sum;
+	}
 
 	public Long getId() {
 		return id;
