@@ -13,6 +13,8 @@ import com.danielProject.demo.repositories.UserRepository;
 import com.danielProject.demo.resources.exceptions.DatabaseException;
 import com.danielProject.demo.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	
@@ -49,9 +51,14 @@ public class UserService {
 	
 	public User update(Long id, User obj)
 	{
-		User entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			User entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		}
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	public void updateData(User entity, User obj)
